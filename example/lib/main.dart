@@ -15,7 +15,10 @@ class _MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<_MyApp> {
-  ScanResult scanResult;
+  ScanResult scanResult = ScanResult(
+    type: ResultType.Barcode,
+    format: BarcodeFormat.unknown,
+  );
 
   final _flashOnController = TextEditingController(text: "Flash on");
   final _flashOffController = TextEditingController(text: "Flash off");
@@ -46,29 +49,28 @@ class _MyAppState extends State<_MyApp> {
   @override
   Widget build(BuildContext context) {
     var contentList = <Widget>[
-      if (scanResult != null)
-        Card(
-          child: Column(
-            children: <Widget>[
-              ListTile(
-                title: Text("Result Type"),
-                subtitle: Text(scanResult.type?.toString() ?? ""),
-              ),
-              ListTile(
-                title: Text("Raw Content"),
-                subtitle: Text(scanResult.rawContent ?? ""),
-              ),
-              ListTile(
-                title: Text("Format"),
-                subtitle: Text(scanResult.format?.toString() ?? ""),
-              ),
-              ListTile(
-                title: Text("Format note"),
-                subtitle: Text(scanResult.formatNote ?? ""),
-              ),
-            ],
-          ),
+      Card(
+        child: Column(
+          children: <Widget>[
+            ListTile(
+              title: Text("Result Type"),
+              subtitle: Text(scanResult.type.toString() ?? ""),
+            ),
+            ListTile(
+              title: Text("Raw Content"),
+              subtitle: Text(scanResult.rawContent),
+            ),
+            ListTile(
+              title: Text("Format"),
+              subtitle: Text(scanResult.format.toString() ?? ""),
+            ),
+            ListTile(
+              title: Text("Format note"),
+              subtitle: Text(scanResult.formatNote),
+            ),
+          ],
         ),
+      ),
       ListTile(
         title: Text("Camera selection"),
         dense: true,
@@ -100,7 +102,6 @@ class _MyAppState extends State<_MyApp> {
       ListTile(
         title: TextField(
           decoration: InputDecoration(
-            hasFloatingPlaceholder: true,
             labelText: "Flash On",
           ),
           controller: _flashOnController,
@@ -109,7 +110,6 @@ class _MyAppState extends State<_MyApp> {
       ListTile(
         title: TextField(
           decoration: InputDecoration(
-            hasFloatingPlaceholder: true,
             labelText: "Flash Off",
           ),
           controller: _flashOffController,
@@ -118,7 +118,6 @@ class _MyAppState extends State<_MyApp> {
       ListTile(
         title: TextField(
           decoration: InputDecoration(
-            hasFloatingPlaceholder: true,
             labelText: "Cancel",
           ),
           controller: _cancelController,
@@ -152,7 +151,7 @@ class _MyAppState extends State<_MyApp> {
           value: _useAutoFocus,
           onChanged: (checked) {
             setState(() {
-              _useAutoFocus = checked;
+              _useAutoFocus = checked!;
             });
           },
         )
@@ -170,7 +169,7 @@ class _MyAppState extends State<_MyApp> {
         value: _autoEnableFlash,
         onChanged: (checked) {
           setState(() {
-            _autoEnableFlash = checked;
+            _autoEnableFlash = checked!;
           });
         },
       )
@@ -188,7 +187,9 @@ class _MyAppState extends State<_MyApp> {
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           value: selectedFormats.length == _possibleFormats.length
               ? true
-              : selectedFormats.length == 0 ? false : null,
+              : selectedFormats.isEmpty
+                  ? false
+                  : null,
           onChanged: (checked) {
             setState(() {
               selectedFormats = [
