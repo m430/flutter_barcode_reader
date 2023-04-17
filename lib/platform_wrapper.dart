@@ -72,7 +72,7 @@ class BarcodeScanner {
       ..android = (proto.AndroidConfiguration()
         ..useAutoFocus = options.android.useAutoFocus
         ..aspectTolerance = options.android.aspectTolerance /**/) /**/;
-    var buffer = await _channel.invokeMethod('scan', config?.writeToBuffer());
+    var buffer = await _channel.invokeMethod('scan', config.writeToBuffer());
     var tmpResult = proto.ScanResult.fromBuffer(buffer);
     return ScanResult(
       format: tmpResult.format,
