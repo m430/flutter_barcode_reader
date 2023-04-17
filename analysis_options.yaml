@@ -6,6 +6,8 @@ include: package:effective_dart/analysis_options.yaml
 #   rules:
 #     - camel_case_types
 
+sdk: ">=2.12.0 < 3.0.0"
+
 analyzer:
   exclude:
     - lib/gen/**
