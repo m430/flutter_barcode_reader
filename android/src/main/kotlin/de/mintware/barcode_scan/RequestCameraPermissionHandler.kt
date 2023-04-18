@@ -10,7 +10,7 @@ class RequestCameraPermissionHandler(private val sink: EventChannel.EventSink?
 
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<out String>,
-                                            grantResults: IntArray?
+                                            grantResults: IntArray
     ): Boolean {
         if (requestCode != REQ_CAMERA_PERMISSION) {
             return false

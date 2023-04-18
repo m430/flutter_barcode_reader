@@ -70,7 +70,7 @@ class ActivityHelper(private var applicationContext: Context?,
 
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<out String>,
-                                            grantResults: IntArray?
+                                            grantResults: IntArray
     ): Boolean {
         if (!permissionResultMap.containsKey(requestCode)) {
             return false
