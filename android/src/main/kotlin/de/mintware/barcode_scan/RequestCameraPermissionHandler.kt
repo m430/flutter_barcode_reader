@@ -30,7 +30,7 @@ class RequestCameraPermissionHandler(private val sink: EventChannel.EventSink?
 
      * @see onRequestPermissionsResult
      */
-    private fun verifyPermissions(grantResults: IntArray?): Boolean {
+    private fun verifyPermissions(grantResults: IntArray): Boolean {
         if (grantResults == null) {
             return false
         }
